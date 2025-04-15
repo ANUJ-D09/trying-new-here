@@ -1,18 +1,10 @@
-[
-  {
-    "name": "Anujs",
-    "task": "Some task name"
-  },
-  {
-    "id": null,
-    "task name": "Builsd "
-  },
-  {
-    "id": null,
-    "task name": "Builsds "
-  },
-  {
-    "id": null,
-    "task name": "Builsdssssss "
-  }
+[{
+        "name": "Anujs",
+        "task": "Some task name"
+    },
+    {
+        "id": null,
+        "task name": "Builsd "
+    }
+    cl
 ]

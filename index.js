@@ -60,6 +60,44 @@ app.post('/save', (req, res) => {
     });
 });
 
+app.delete('/delete', (req, res) => {
+    const id = req.body.id;
+    if (!id) {
+        return res.status(400).send("task is required");
+    }
+    fs.readFile("file.json", "utf-8", (err, data) => {
+        if (err) {
+            console.log("its error", err);
+            return res.status(500).send("failed to search");
+        }
+        let tasks;
+        try {
+            tasks = JSON.parse(data);
+
+        } catch (error) {
+            console.log("its error", error);
+            return res.status(500).send("failed to search");
+        }
+
+        const filtereedtasks = tasks.filter(task => task.id !== Number(id));
+
+        if (filtereedtasks.length === tasks.length) {
+            return res.status(404).send("Task not found");
+        }
+
+        fs.writeFile("file.json", JSON.stringify(filtereedtasks, null, 2), "utf-8", (err) => {
+            if (err) {
+                console.log("its error", err);
+                return res.status(500).send("failed to search");
+            }
+            res.send("sucess");
+
+        })
+
+    })
+
+})
+
 
 app.get('/update', (req, res) => {
     res.send("Update route needs logic");
