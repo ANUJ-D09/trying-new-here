@@ -1,3 +1,4 @@
+const { trace } = require("console");
 const express = require("express");
 const fs = require("fs");
 const app = express();
@@ -63,7 +64,7 @@ app.post('/save', (req, res) => {
 app.delete('/delete', (req, res) => {
     const id = req.body.id;
     if (!id) {
-        return res.status(400).send("task is required");
+        return res.status(400).send("id is required");
     }
     fs.readFile("file.json", "utf-8", (err, data) => {
         if (err) {
@@ -99,9 +100,43 @@ app.delete('/delete', (req, res) => {
 })
 
 
-app.get('/update', (req, res) => {
-    res.send("Update route needs logic");
-});
+
+app.put('/update', (req, res) => {
+    const id = req.body.id;
+    if (!id) {
+        console.log("wrong id");
+        res.status(404).send("id not found");
+    }
+    fs.readFile("file.json", "utf-8", (err, data) => {
+        if (err) {
+            console.log("error", err);
+            res.status(500).send("failed operation");
+        }
+        let tasks;
+        try {
+            tasks = JSON.parse(data);
+
+
+        } catch (error) {
+            console.log("error", error);
+            res.status(500).send("failed operation");
+
+        }
+        const filtertask = tasks.filter(task => task.id !== Number(id));
+        if (filtertask.length == tasks.length) {
+            return res.status(404).send("Task not found");
+        }
+        fs.writeFile("file.json", JSON.stringify(filtertask, null, 2), "utf-8", (err) => {
+            if (err) {
+                console.log("its error", err);
+                return res.status(500).send("failed to search");
+            }
+            res.send("sucess");
+        })
+
+
+    })
+})
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
