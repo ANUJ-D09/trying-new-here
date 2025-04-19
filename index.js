@@ -59,7 +59,7 @@ app.post('/save', (req, res) => {
             res.send("Data saved");
         });
     });
-    res.send("Data saved");
+
 });
 
 app.delete('/delete', (req, res) => {
