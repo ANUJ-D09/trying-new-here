@@ -123,6 +123,10 @@ app.put('/update', (req, res) => {
             res.status(500).send("failed operation");
 
         }
+        const updatetask {
+
+
+        }
         const filtertask = tasks.filter(task => task.id !== Number(id));
         if (filtertask.length == tasks.length) {
             return res.status(404).send("Task not found");
