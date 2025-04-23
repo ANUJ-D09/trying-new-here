@@ -139,13 +139,7 @@ app.put('/update', (req, res) => {
             res.send("sucess");
         })
 
-        fs.writeFile("file.json", JSON.stringify(filtertask, null, 2), "utf-8", (err) => {
-            if (err) {
-                console.log("its error", err);
-                return res.status(500).send("failed to search");
-            }
-            res.send("sucess");
-        })
+
 
     })
 })
